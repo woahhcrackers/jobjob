@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JobJob | Student-Friendly Jobs Near You</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+  <style>
+    :root {
+      --green: #1a7a4a;
+      --green-2: #11683d;
+      --green-light: #e8f5ee;
+      --green-mid: #2daa68;
+      --dark: #101827;
+      --muted: #667085;
+      --soft: #f5f7fb;
+      --border: #e4e7ec;
+      --bg: #f8fafc;
+      --white: #ffffff;
+      --yellow: #f59e0b;
+      --orange: #ea580c;
+      --blue: #2563eb;
+      --purple: #7c3aed;
+      --red: #dc2626;
+      --radius: 16px;
+      --shadow: 0 1px 3px rgba(15, 23, 42, .08), 0 10px 24px rgba(15, 23, 42, .06);
+      --shadow-lg: 0 20px 50px rgba(15, 23, 42, .14);
+      --ring: 0 0 0 4px rgba(45, 170, 104, .16);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(45, 170, 104, .16), transparent 30rem),
+        radial-gradient(circle at 80% 10%, rgba(37, 99, 235, .08), transparent 24rem),
+        var(--bg);
+      color: var(--dark);
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    body.drawer-lock { overflow: hidden; }
+    button, input, select { font: inherit; }
+    button { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; }
+
+    .icon { width: 17px; height: 17px; stroke-width: 2.25; flex: 0 0 auto; }
+    .icon-sm { width: 15px; height: 15px; }
+    .icon-lg { width: 22px; height: 22px; }
+    .filled-star { fill: var(--yellow); stroke: var(--yellow); }
+    .half-star { fill: var(--yellow); stroke: var(--yellow); clip-path: inset(0 45% 0 0); }
+
+    nav {
+      background: rgba(255,255,255,.9);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+    }
+    .nav-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 0 24px;
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      color: var(--green);
+      text-decoration: none;
+      letter-spacing: -.6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--green), var(--green-mid));
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 8px 16px rgba(26, 122, 74, .24);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+      margin-left: 4px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 10px;
+      transition: color .18s, background .18s, transform .18s;
+    }
+    .nav-links a:hover { color: var(--dark); background: var(--soft); }
+    .nav-links a.active { color: var(--green); background: var(--green-light); }
+    .nav-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+    .btn-ghost, .btn-primary, .btn-soft, .btn-danger {
+      border: none;
+      border-radius: 11px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease, border-color .16s ease, color .16s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 40px;
+      padding: 0 16px;
+    }
+    .btn-ghost { background: var(--white); border: 1px solid var(--border); color: var(--dark); }
+    .btn-ghost:hover { border-color: #cbd5e1; box-shadow: var(--shadow); transform: translateY(-1px); }
+    .btn-primary { background: var(--green); color: white; box-shadow: 0 10px 22px rgba(26, 122, 74, .22); }
+    .btn-primary:hover { background: var(--green-2); transform: translateY(-1px); box-shadow: 0 14px 30px rgba(26, 122, 74, .28); }
+    .btn-soft { background: var(--green-light); color: var(--green); }
+    .btn-soft:hover { background: #d9f0e4; transform: translateY(-1px); }
+    .btn-danger { background: #fef2f2; color: var(--red); }
+    .mobile-menu-btn { display: none; }
+
+    .location-bar {
+      background: linear-gradient(90deg, #e8f5ee, #eef7ff);
+      border-bottom: 1px solid #d6eadf;
+      color: var(--green);
+    }
+    .location-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      font-size: 13.5px;
+      text-align: center;
+      flex-wrap: wrap;
+    }
+    .location-inner strong { font-weight: 800; color: var(--green-2); }
+    .location-inner button {
+      border: none;
+      background: transparent;
+      color: var(--green-2);
+      text-decoration: underline;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: rgba(255,255,255,.78);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero::before, .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(2px);
+      opacity: .7;
+      pointer-events: none;
+    }
+    .hero::before { width: 280px; height: 280px; background: rgba(45,170,104,.1); top: -150px; left: 8%; }
+    .hero::after { width: 220px; height: 220px; background: rgba(37,99,235,.08); bottom: -130px; right: 10%; }
+    .hero-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 58px 24px 42px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #badfcc;
+      background: #f3fbf6;
+      color: var(--green-2);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 20px rgba(26, 122, 74, .08);
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(42px, 7vw, 72px);
+      line-height: .96;
+      font-weight: 400;
+      letter-spacing: -2px;
+      color: var(--dark);
+      margin-bottom: 14px;
+    }
+    .hero h1 em { color: var(--green); font-style: italic; }
+    .hero p {
+      max-width: 690px;
+      margin: 0 auto 26px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+    .search-row {
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) minmax(160px, .65fr) auto;
+      gap: 8px;
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 8px;
+      box-shadow: var(--shadow-lg);
+    }
+    .search-input-wrap { position: relative; }
+    .search-input-wrap .ico {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #98a2b3;
+      pointer-events: none;
+    }
+    .search-row input {
+      width: 100%;
+      height: 48px;
+      border: 1px solid transparent;
+      outline: none;
+      border-radius: 12px;
+      padding: 0 14px 0 42px;
+      color: var(--dark);
+      background: #f8fafc;
+      transition: background .16s, border .16s, box-shadow .16s;
+    }
+    .search-row input:focus { background: white; border-color: #9fd5b8; box-shadow: var(--ring); }
+    .search-row input::placeholder { color: #98a2b3; }
+    .search-row .btn-primary { min-height: 48px; padding: 0 24px; }
+
+    .quick-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 18px;
+    }
+    .quick-tag {
+      font-size: 13px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      color: #475467;
+      cursor: pointer;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, .04);
+      transition: border .16s, color .16s, background .16s, transform .16s;
+    }
+    .quick-tag:hover, .quick-tag.active { border-color: var(--green); color: var(--green); background: var(--green-light); transform: translateY(-1px); }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      max-width: 940px;
+      margin: 26px auto 0;
+    }
+    .stat-card {
+      background: rgba(255,255,255,.78);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 15px;
+      text-align: left;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      transform: translateY(10px);
+      opacity: 0;
+      animation: rise .55s ease forwards;
+    }
+    .stat-card:nth-child(2) { animation-delay: .08s; }
+    .stat-card:nth-child(3) { animation-delay: .16s; }
+    .stat-card:nth-child(4) { animation-delay: .24s; }
+    .stat-label { color: var(--muted); font-size: 12.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; }
+    .stat-value { margin-top: 3px; font-size: 22px; font-weight: 800; letter-spacing: -.5px; }
+    .stat-value small { font-size: 13px; color: var(--muted); font-weight: 700; }
+
+    .main {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 32px 24px;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 26px;
+      align-items: start;
+    }
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: sticky;
+      top: 88px;
+    }
+    .filter-card, .tip-card, .spotlight-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    .filter-title {
+      font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      color: #344054;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .filter-title span { color: var(--muted); font-size: 11px; letter-spacing: 0; text-transform: none; font-weight: 700; }
+    .filter-group { display: flex; flex-direction: column; gap: 10px; }
+    .filter-option {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 14px;
+      color: #344054;
+      cursor: pointer;
+      min-height: 22px;
+      user-select: none;
+    }
+    .filter-option input[type="checkbox"], .filter-option input[type="radio"] { accent-color: var(--green); width: 16px; height: 16px; }
+    .filter-option span.count { margin-left: auto; font-size: 12px; color: var(--muted); background: #f2f4f7; padding: 1px 7px; border-radius: 999px; }
+    .range-wrap { padding: 4px 0; }
+    .range-wrap input[type="range"] { width: 100%; accent-color: var(--green); cursor: pointer; }
+    .range-labels { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+    .tip-card { background: linear-gradient(135deg, #ffffff, #f1fbf5); }
+    .tip-card h3, .spotlight-card h3 { font-size: 15px; margin-bottom: 7px; display: flex; align-items: center; gap: 8px; }
+    .tip-card p, .spotlight-card p { color: var(--muted); font-size: 13.5px; line-height: 1.55; }
+    .mini-list { list-style: none; margin-top: 12px; display: grid; gap: 9px; }
+    .mini-list li { display: flex; align-items: center; gap: 8px; color: #344054; font-size: 13.5px; font-weight: 700; }
+
+    .jobs-col { min-width: 0; }
+    .jobs-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .jobs-header h2 { font-size: 22px; font-weight: 800; letter-spacing: -.4px; }
+    .jobs-header h2 span { color: var(--muted); font-weight: 600; font-size: 15px; letter-spacing: 0; }
+    .header-tools { display: flex; align-items: center; gap: 10px; }
+    .sort-select {
+      font-size: 13.5px;
+      padding: 9px 10px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--white);
+      color: var(--dark);
+      cursor: pointer;
+      outline: none;
+      font-weight: 700;
+    }
+    .sort-select:focus { box-shadow: var(--ring); border-color: #9fd5b8; }
+
+    .banner {
+      background: linear-gradient(135deg, var(--dark), #1f2a44);
+      border-radius: 20px;
+      color: white;
+      overflow: hidden;
+      margin-bottom: 16px;
+      position: relative;
+      box-shadow: var(--shadow-lg);
+    }
+    .banner::after {
+      content: "";
+      position: absolute;
+      inset: -80px -100px auto auto;
+      width: 260px;
+      height: 260px;
+      border-radius: 999px;
+      background: rgba(45,170,104,.26);
+    }
+    .banner-inner { position: relative; z-index: 1; padding: 22px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .banner h3 { font-size: 18px; margin-bottom: 3px; }
+    .banner p { color: rgba(255,255,255,.72); font-size: 13.5px; }
+    .banner-chip { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.16); padding: 8px 11px; border-radius: 999px; font-size: 13px; font-weight: 800; white-space: nowrap; }
+
+    .skeleton-wrap { display: none; gap: 12px; flex-direction: column; }
+    .skeleton-wrap.show { display: flex; }
+    .skeleton-card {
+      height: 170px;
+      border-radius: 18px;
+      background: linear-gradient(90deg, #eef2f7 25%, #f7f9fc 37%, #eef2f7 63%);
+      background-size: 400% 100%;
+      animation: shimmer 1.05s ease-in-out infinite;
+      border: 1px solid var(--border);
+    }
+
+    .job-list { display: flex; flex-direction: column; gap: 12px; }
+    .job-card {
+      background: rgba(255,255,255,.96);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px 22px;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, .04);
+      animation: cardIn .35s ease both;
+    }
+    .job-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--green);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform .18s ease;
+    }
+    .job-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: #cbd5e1; }
+    .job-card:hover::before { transform: scaleY(1); }
+    .job-card.featured { border-color: #a8dabd; background: linear-gradient(180deg, #ffffff, #fdfffe); }
+    .job-card.urgent { border-color: #fed7aa; }
+    .featured-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: var(--green-light);
+      color: var(--green-2);
+      font-size: 11px;
+      font-weight: 900;
+      padding: 4px 9px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: .45px;
+    }
+    .urgent .featured-badge { background: #fff7ed; color: var(--orange); }
+    .job-top { display: flex; gap: 15px; align-items: flex-start; padding-right: 120px; }
+    .company-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 12px 22px rgba(15, 23, 42, .12);
+    }
+    .company-logo i { width: 25px; height: 25px; }
+    .job-info { flex: 1; min-width: 0; }
+    .job-title { font-size: 17px; font-weight: 900; color: var(--dark); margin-bottom: 2px; letter-spacing: -.25px; }
+    .company-name { font-size: 14px; color: var(--muted); margin-bottom: 8px; }
+    .company-name strong { color: #344054; font-weight: 800; }
+    .job-meta { display: flex; flex-wrap: wrap; gap: 10px; font-size: 13px; color: var(--muted); margin-bottom: 11px; }
+    .job-meta span { display: inline-flex; align-items: center; gap: 5px; }
+    .job-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tag { font-size: 12px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border); color: #475467; background: #f8fafc; font-weight: 800; }
+    .tag.green { background: var(--green-light); border-color: #b9dfc9; color: var(--green-2); }
+    .tag.blue { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+    .tag.orange { background: #fff7ed; border-color: #fed7aa; color: #c2410c; }
+    .tag.purple { background: #f5f3ff; border-color: #ddd6fe; color: #6d28d9; }
+
+    .job-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid var(--border);
+    }
+    .pay-range { font-size: 17px; font-weight: 900; color: var(--green); letter-spacing: -.2px; }
+    .pay-range span { font-size: 13px; font-weight: 600; color: var(--muted); }
+    .stars { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; color: var(--muted); }
+    .star-icons { display: inline-flex; align-items: center; gap: 1px; color: var(--yellow); }
+    .star-icons svg { width: 14px; height: 14px; fill: var(--yellow); stroke: var(--yellow); }
+    .job-actions { display: flex; align-items: center; gap: 8px; }
+    .save-btn, .apply-btn {
+      border: none;
+      border-radius: 11px;
+      cursor: pointer;
+      font-weight: 800;
+      min-height: 38px;
+      padding: 0 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: transform .16s, background .16s, border .16s, color .16s, box-shadow .16s;
+    }
+    .save-btn { background: white; border: 1px solid var(--border); color: #475467; }
+    .save-btn.saved { border-color: #b9dfc9; color: var(--green); background: var(--green-light); }
+    .save-btn:hover, .apply-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+    .apply-btn { background: var(--green); color: white; }
+
+    .empty-state {
+      display: none;
+      text-align: center;
+      background: white;
+      border: 1px dashed #cbd5e1;
+      border-radius: 20px;
+      padding: 54px 20px;
+      color: var(--muted);
+      box-shadow: var(--shadow);
+    }
+    .empty-state.show { display: block; }
+    .empty-state i { color: var(--green); margin-bottom: 12px; }
+    .empty-state h3 { color: var(--dark); font-size: 20px; margin-bottom: 5px; }
+
+    .pagination { display: flex; align-items: center; justify-content: center; gap: 7px; margin-top: 18px; }
+    .page-btn { width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; border-radius: 11px; border: 1px solid var(--border); background: var(--white); font-size: 14px; cursor: pointer; color: var(--dark); font-weight: 800; transition: all .15s; }
+    .page-btn:hover { border-color: var(--green); color: var(--green); transform: translateY(-1px); }
+    .page-btn.active { background: var(--green); color: white; border-color: var(--green); }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,.42);
+      z-index: 200;
+      backdrop-filter: blur(4px);
+      animation: fadeIn .18s ease;
+    }
+    .overlay.open { display: block; }
+    .drawer {
+      position: fixed;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: min(520px, 94vw);
+      background: var(--white);
+      box-shadow: -12px 0 48px rgba(15,23,42,.18);
+      z-index: 201;
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform .28s cubic-bezier(.4,0,.2,1);
+    }
+    .drawer.open { transform: translateX(0); }
+    .drawer-header {
+      padding: 22px 24px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,.92);
+      z-index: 2;
+      backdrop-filter: blur(14px);
+    }
+    .drawer-close {
+      background: #f2f4f7;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      width: 38px;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      transition: background .16s, color .16s, transform .16s;
+    }
+    .drawer-close:hover { background: #e4e7ec; color: var(--dark); transform: rotate(3deg); }
+    .drawer-body { padding: 24px; }
+    .drawer-company { display: flex; gap: 14px; align-items: center; margin-bottom: 20px; }
+    .drawer-logo { width: 58px; height: 58px; border-radius: 16px; border: 1px solid var(--border); display: inline-flex; align-items: center; justify-content: center; color: white; box-shadow: 0 14px 22px rgba(15,23,42,.12); }
+    .drawer-logo i { width: 28px; height: 28px; }
+    .drawer-title { font-size: 21px; font-weight: 900; letter-spacing: -.4px; margin-bottom: 1px; }
+    .drawer-sub { font-size: 14px; color: var(--muted); }
+    .drawer-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    .info-item { background: #f8fafc; border: 1px solid #edf2f7; border-radius: 13px; padding: 13px 14px; }
+    .info-label { font-size: 11px; text-transform: uppercase; letter-spacing: .55px; color: var(--muted); margin-bottom: 3px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+    .info-value { font-size: 14px; font-weight: 900; color: var(--dark); }
+    .job-description { margin-bottom: 24px; color: #344054; font-size: 14.5px; }
+    .section-label { font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: .7px; color: var(--muted); margin-bottom: 13px; display: flex; align-items: center; gap: 8px; }
+    .bullet-list { display: grid; gap: 8px; margin: 0 0 24px; list-style: none; }
+    .bullet-list li { display: flex; gap: 8px; color: #344054; font-size: 14px; }
+    .bullet-list li i { color: var(--green); margin-top: 2px; }
+
+    .rating-summary {
+      background: linear-gradient(135deg, #f8fafc, #f3fbf6);
+      border: 1px solid #edf2f7;
+      border-radius: 16px;
+      padding: 18px;
+      display: flex;
+      gap: 22px;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+    .big-rating { text-align: center; min-width: 96px; }
+    .big-num { font-size: 48px; font-weight: 900; font-family: 'DM Serif Display', serif; color: var(--dark); line-height: 1; }
+    .big-stars { display: inline-flex; gap: 1px; margin: 5px 0 2px; }
+    .big-stars svg { width: 16px; height: 16px; fill: var(--yellow); stroke: var(--yellow); }
+    .big-count { font-size: 12px; color: var(--muted); font-weight: 700; }
+    .rating-bars { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+    .bar-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); font-weight: 700; }
+    .bar-row span:first-child { width: 34px; text-align: right; }
+    .bar-track { flex: 1; height: 8px; background: #e4e7ec; border-radius: 999px; overflow: hidden; }
+    .bar-fill { height: 100%; background: linear-gradient(90deg, var(--yellow), #fbbf24); border-radius: 999px; }
+    .bar-row span:last-child { width: 30px; }
+    .review-card { padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .review-card:last-child { border-bottom: none; }
+    .review-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .avatar { width: 38px; height: 38px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; color: white; flex-shrink: 0; }
+    .review-meta { flex: 1; }
+    .reviewer-name { font-weight: 900; font-size: 14px; }
+    .reviewer-sub { font-size: 12px; color: var(--muted); }
+    .review-stars { display: inline-flex; gap: 1px; }
+    .review-stars svg { width: 13px; height: 13px; fill: var(--yellow); stroke: var(--yellow); }
+    .review-title { font-weight: 900; font-size: 14px; margin-bottom: 4px; }
+    .review-body { font-size: 13.5px; color: #344054; line-height: 1.6; }
+    .review-helpful { margin-top: 8px; font-size: 12px; color: var(--muted); }
+    .review-helpful span { color: var(--green); cursor: pointer; font-weight: 800; }
+
+    .apply-section { margin-top: 24px; padding: 20px; background: var(--green-light); border-radius: 16px; text-align: center; border: 1px solid #ccebd9; }
+    .apply-section h3 { font-size: 17px; font-weight: 900; margin-bottom: 6px; }
+    .apply-section p { font-size: 13.5px; color: var(--muted); margin-bottom: 16px; }
+    .apply-full-btn { width: 100%; min-height: 48px; border-radius: 13px; }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 350;
+      place-items: center;
+      padding: 18px;
+    }
+    .modal.open { display: grid; }
+    .modal > .overlay { z-index: 0; }
+    .modal-card {
+      background: white;
+      z-index: 1;
+      width: min(460px, 100%);
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      padding: 24px;
+      position: relative;
+      animation: scaleIn .18s ease;
+    }
+    .modal-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: var(--green-light);
+      color: var(--green);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 13px;
+    }
+    .modal-card h3 { font-size: 21px; margin-bottom: 6px; letter-spacing: -.3px; }
+    .modal-card p { color: var(--muted); margin-bottom: 17px; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
+
+    footer { background: rgba(255,255,255,.9); border-top: 1px solid var(--border); padding: 42px 24px 26px; margin-top: 36px; }
+    .footer-inner { max-width: 1220px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; }
+    .footer-brand .logo { margin-bottom: 12px; }
+    .footer-brand p { font-size: 13.5px; color: var(--muted); max-width: 340px; line-height: 1.7; }
+    .footer-col h4 { font-size: 13px; font-weight: 900; margin-bottom: 12px; color: var(--dark); }
+    .footer-col a { display: block; font-size: 13.5px; color: var(--muted); text-decoration: none; margin-bottom: 8px; transition: color .15s; }
+    .footer-col a:hover { color: var(--green); }
+    .footer-bottom { max-width: 1220px; margin: 30px auto 0; padding-top: 18px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; gap: 12px; font-size: 12.5px; color: var(--muted); flex-wrap: wrap; }
+    .footer-bottom strong { color: #344054; }
+
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(90px);
+      background: var(--dark);
+      color: white;
+      padding: 12px 18px;
+      border-radius: 13px;
+      font-size: 14px;
+      font-weight: 800;
+      z-index: 500;
+      transition: transform .28s cubic-bezier(.4,0,.2,1);
+      pointer-events: none;
+      box-shadow: var(--shadow-lg);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-width: max-content;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+
+    @keyframes rise { to { transform: translateY(0); opacity: 1; } }
+    @keyframes shimmer { 0% { background-position: 100% 0; } 100% { background-position: 0 0; } }
+    @keyframes cardIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes scaleIn { from { opacity: 0; transform: scale(.96) translateY(4px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+    @media (max-width: 980px) {
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: inline-flex; }
+      .search-row { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .main { grid-template-columns: 1fr; }
+      .sidebar { position: static; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .jobs-header { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 680px) {
+      .nav-inner { padding: 0 16px; }
+      .nav-right .btn-primary, .nav-right .btn-ghost { display: none; }
+      .hero-inner { padding: 42px 16px 32px; }
+      .hero h1 { letter-spacing: -1.2px; }
+      .stats-row, .sidebar, .footer-inner { grid-template-columns: 1fr; }
+      .main { padding: 24px 16px; }
+      .job-top { padding-right: 0; }
+      .featured-badge { position: static; display: inline-flex; margin-bottom: 10px; }
+      .job-bottom { flex-direction: column; align-items: flex-start; }
+      .job-actions { width: 100%; }
+      .save-btn, .apply-btn { flex: 1; }
+      .banner-inner { flex-direction: column; align-items: flex-start; }
+      .info-grid { grid-template-columns: 1fr; }
+      .rating-summary { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="logo" aria-label="JobJob home">
+        <span class="logo-icon"><i data-lucide="briefcase-business" class="icon-lg"></i></span>
+        JobJob
+      </a>
+      <ul class="nav-links" aria-label="Main navigation">
+        <li><a href="#" class="active">Find Jobs</a></li>
+        <li><a href="#reviews">Company Reviews</a></li>
+        <li><a href="#salary">Salary Guide</a></li>
+        <li><a href="#resources">Career Resources</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="btn-ghost" type="button" onclick="showToast('Sign in is not connected in this prototype')"><i data-lucide="user-round" class="icon-sm"></i>Sign In</button>
+        <button class="btn-primary" type="button" onclick="showToast('Employer posting flow is ready to connect')"><i data-lucide="plus" class="icon-sm"></i>Post a Job</button>
+        <button class="btn-ghost mobile-menu-btn" type="button" onclick="showToast('Menu preview opened')" aria-label="Open menu"><i data-lucide="menu" class="icon"></i></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="location-bar">
+    <div class="location-inner">
+      <i data-lucide="map-pin" class="icon-sm"></i>
+      <span>Showing student-friendly jobs near <strong id="areaLabel">your area</strong></span>
+      <span id="nearbyText">within local commuting distance and online</span>
+      <span aria-hidden="true">|</span>
+      <button type="button" onclick="manualLocationPrompt()">Change location</button>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow"><i data-lucide="graduation-cap" class="icon-sm"></i>Built around school schedules, first jobs, and early career starts</div>
+      <h1>Find a job that fits <em>school life</em></h1>
+      <p id="heroCopy">Browse part-time, weekend, seasonal, entry-level, and right-after-graduation work near your area without digging through senior-level listings.</p>
+      <div class="search-row" role="search">
+        <div class="search-input-wrap">
+          <span class="ico"><i data-lucide="search" class="icon"></i></span>
+          <input id="keywordInput" type="text" placeholder="Job title, keyword, or company" autocomplete="off" />
+        </div>
+        <div class="search-input-wrap">
+          <span class="ico"><i data-lucide="map-pin" class="icon"></i></span>
+          <input id="locationInput" type="text" placeholder="Use my area" autocomplete="off" />
+        </div>
+        <button class="btn-primary" type="button" onclick="runSearch()"><i data-lucide="sparkles" class="icon-sm"></i>Search Jobs</button>
+      </div>
+      <div class="quick-tags" aria-label="Popular job filters">
+        <button class="quick-tag" type="button" data-tag="Part-time"><i data-lucide="clock-3" class="icon-sm"></i>Part-time</button>
+        <button class="quick-tag" type="button" data-tag="After school"><i data-lucide="school" class="icon-sm"></i>After school</button>
+        <button class="quick-tag" type="button" data-tag="Weekend"><i data-lucide="calendar-days" class="icon-sm"></i>Weekend</button>
+        <button class="quick-tag" type="button" data-tag="No experience"><i data-lucide="badge-check" class="icon-sm"></i>No experience</button>
+        <button class="quick-tag" type="button" data-tag="Paid training"><i data-lucide="notebook-tabs" class="icon-sm"></i>Paid training</button>
+        <button class="quick-tag" type="button" data-tag="Remote"><i data-lucide="laptop" class="icon-sm"></i>Remote</button>
+      </div>
+      <div class="stats-row" aria-label="JobJob highlights">
+        <div class="stat-card"><div class="stat-label">Open roles</div><div class="stat-value" id="statOpen">0</div></div>
+        <div class="stat-card"><div class="stat-label">Avg starting pay</div><div class="stat-value" id="statPay">$0 <small>/hr</small></div></div>
+        <div class="stat-card"><div class="stat-label">School-friendly</div><div class="stat-value" id="statSchool">0%</div></div>
+        <div class="stat-card"><div class="stat-label">No experience</div><div class="stat-value" id="statNoExp">0</div></div>
+      </div>
+    </div>
+  </section>
+
+  <main class="main">
+    <aside class="sidebar" aria-label="Job filters">
+      <section class="filter-card">
+        <div class="filter-title">Job type <span>fast filters</span></div>
+        <div class="filter-group">
+          <label class="filter-option"><input type="checkbox" value="Part-time" class="filter-check" />Part-time <span class="count">12</span></label>
+          <label class="filter-option"><input type="checkbox" value="After school" class="filter-check" />After school <span class="count">9</span></label>
+          <label class="filter-option"><input type="checkbox" value="Weekend" class="filter-check" />Weekend <span class="count">8</span></label>
+          <label class="filter-option"><input type="checkbox" value="Seasonal" class="filter-check" />Seasonal <span class="count">5</span></label>
+          <label class="filter-option"><input type="checkbox" value="Full-time" class="filter-check" />Full-time after graduation <span class="count">6</span></label>
+          <label class="filter-option"><input type="checkbox" value="Remote" class="filter-check" />Remote or hybrid <span class="count">3</span></label>
+        </div>
+      </section>
+
+      <section class="filter-card">
+        <div class="filter-title">Starting pay</div>
+        <div class="range-wrap">
+          <input id="payRange" type="range" min="10" max="25" value="10" step="1" />
+          <div class="range-labels"><span>$10/hr</span><strong id="payRangeLabel">$10+/hr</strong><span>$25/hr</span></div>
+        </div>
+      </section>
+
+      <section class="filter-card">
+        <div class="filter-title">Good for students</div>
+        <div class="filter-group">
+          <label class="filter-option"><input type="checkbox" value="No experience" class="filter-check" />No experience needed</label>
+          <label class="filter-option"><input type="checkbox" value="Paid training" class="filter-check" />Paid training</label>
+          <label class="filter-option"><input type="checkbox" value="Flexible schedule" class="filter-check" />Flexible schedule</label>
+          <label class="filter-option"><input type="checkbox" value="Scholarship perk" class="filter-check" />Scholarship perk</label>
+        </div>
+      </section>
+
+      <section class="tip-card">
+        <h3><i data-lucide="lightbulb" class="icon"></i>First-job tip</h3>
+        <p>For school-year work, look for short shifts, predictable weekend hours, and managers who mention paid training up front.</p>
+        <ul class="mini-list">
+          <li><i data-lucide="check-circle-2" class="icon-sm"></i>Ask about exam-week flexibility</li>
+          <li><i data-lucide="check-circle-2" class="icon-sm"></i>Keep commute under 25 minutes</li>
+          <li><i data-lucide="check-circle-2" class="icon-sm"></i>Save jobs with training notes</li>
+        </ul>
+      </section>
+
+      <section class="spotlight-card">
+        <h3><i data-lucide="radar" class="icon"></i>Hiring pattern</h3>
+        <p id="patternText">Most local entry-level listings refresh on weekday mornings. Weekend roles usually move fastest.</p>
+      </section>
+    </aside>
+
+    <section class="jobs-col">
+      <div class="jobs-header">
+        <div>
+          <h2>Recommended jobs <span id="resultsLabel">loading listings</span></h2>
+          <p id="subResultsLabel" style="color:var(--muted);font-size:13.5px;margin-top:2px;">Matching school-friendly schedules near your area.</p>
+        </div>
+        <div class="header-tools">
+          <select id="sortSelect" class="sort-select" aria-label="Sort jobs">
+            <option value="recommended">Sort: Recommended</option>
+            <option value="payHigh">Highest pay</option>
+            <option value="ratingHigh">Highest rated</option>
+            <option value="newest">Newest</option>
+          </select>
+          <button class="btn-ghost" type="button" onclick="clearFilters()"><i data-lucide="rotate-ccw" class="icon-sm"></i>Reset</button>
+        </div>
+      </div>
+
+      <div class="banner">
+        <div class="banner-inner">
+          <div>
+            <h3>Start with roles that will not fight your schedule</h3>
+            <p>Filtered toward after-school, weekend, summer, paid training, and first-step career listings.</p>
+          </div>
+          <span class="banner-chip"><i data-lucide="zap" class="icon-sm"></i><span id="todayChip">Updated today</span></span>
+        </div>
+      </div>
+
+      <div id="skeletonWrap" class="skeleton-wrap show" aria-hidden="true">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+
+      <div id="jobList" class="job-list" aria-live="polite"></div>
+
+      <div id="emptyState" class="empty-state">
+        <i data-lucide="search-x" class="icon-lg"></i>
+        <h3>No matching jobs found</h3>
+        <p>Try a lower starting pay, fewer filters, or a broader keyword.</p>
+      </div>
+
+      <div class="pagination" aria-label="Pagination">
+        <button class="page-btn active" type="button">1</button>
+        <button class="page-btn" type="button" onclick="showToast('More listings can be connected here')">2</button>
+        <button class="page-btn" type="button" onclick="showToast('More listings can be connected here')">3</button>
+        <button class="page-btn" type="button" onclick="showToast('More listings can be connected here')"><i data-lucide="chevron-right" class="icon-sm"></i></button>
+      </div>
+    </section>
+  </main>
+
+  <div id="overlay" class="overlay" onclick="closeDrawer()"></div>
+  <aside id="drawer" class="drawer" aria-hidden="true" aria-label="Job details">
+    <div class="drawer-header">
+      <div>
+        <div class="section-label" style="margin-bottom:4px;"><i data-lucide="file-text" class="icon-sm"></i>Job details</div>
+        <div style="font-size:13.5px;color:var(--muted);">Role, pay, schedule, and worker reviews</div>
+      </div>
+      <button class="drawer-close" type="button" onclick="closeDrawer()" aria-label="Close details"><i data-lucide="x" class="icon"></i></button>
+    </div>
+    <div id="drawerBody" class="drawer-body"></div>
+  </aside>
+
+  <div id="applyModal" class="modal" aria-hidden="true">
+    <div class="overlay open" onclick="closeApplyModal()"></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-icon"><i data-lucide="send" class="icon-lg"></i></div>
+      <h3 id="modalTitle">Application preview</h3>
+      <p id="modalText">This demo does not submit applications. Connect a real applicant tracking system, employer form, or email workflow before launch.</p>
+      <div class="modal-actions">
+        <button class="btn-ghost" type="button" onclick="closeApplyModal()">Close</button>
+        <button class="btn-primary" type="button" onclick="showToast('Application connector would start here'); closeApplyModal();"><i data-lucide="external-link" class="icon-sm"></i>Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"><i data-lucide="check-circle-2" class="icon-sm"></i><span id="toastText">Saved</span></div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="logo"><span class="logo-icon"><i data-lucide="briefcase-business" class="icon-lg"></i></span>JobJob</a>
+        <p>Student-first job discovery focused on part-time work, flexible schedules, paid training, and realistic first career steps.</p>
+      </div>
+      <div class="footer-col">
+        <h4>For job seekers</h4>
+        <a href="#">Browse jobs</a>
+        <a href="#">Saved jobs</a>
+        <a href="#">Application tracker</a>
+        <a href="#">Interview prep</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="#">Salary guide</a>
+        <a href="#">Student work laws</a>
+        <a href="#">Resume builder</a>
+        <a href="#">After-school schedule tips</a>
+      </div>
+      <div class="footer-col">
+        <h4>Employers</h4>
+        <a href="#">Post a role</a>
+        <a href="#">Hiring dashboard</a>
+        <a href="#">Applicant messages</a>
+        <a href="#">Employer help</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span><strong>Portfolio/prototype notice:</strong> Sample listings are included for layout testing. Connect real employer data before publishing as a live job board.</span>
+      <span>JobJob interface concept</span>
+    </div>
+  </footer>
+
+  <script>
+    const state = {
+      jobs: [],
+      filtered: [],
+      activeTags: new Set(),
+      saved: new Set(JSON.parse(localStorage.getItem('jobjobSaved') || '[]')),
+      minPay: 10,
+      areaLabel: 'your area',
+      city: '',
+      region: '',
+      sort: 'recommended'
+    };
+
+    const jobs = [
+      {
+        id: 'coffee-counter',
+        title: 'Cafe Counter Team Member',
+        company: 'Riverstone Coffee Co.',
+        businessType: 'Cafe and bakery',
+        icon: 'coffee',
+        color: '#8b5e34',
+        payMin: 14,
+        payMax: 18,
+        rating: 4.7,
+        reviewCount: 186,
+        schedule: 'Weekdays after 3 PM, weekends optional',
+        type: 'Part-time',
+        locationStyle: 'Downtown',
+        distance: 2.4,
+        posted: '2 days ago',
+        badge: 'Hiring this week',
+        tags: ['Part-time', 'After school', 'No experience', 'Paid training', 'Flexible schedule'],
+        summary: 'A customer-facing starter role with short shifts, tip-share, paid training, and consistent after-school scheduling.',
+        requirements: ['Friendly with customers during busy rushes', 'Able to stand for 3 to 5 hour shifts', 'Can follow drink recipes and cleaning checklists'],
+        perks: ['Tip-share after training', 'Free shift drink', 'Schedule requests posted two weeks ahead'],
+        reviews: [
+          { name: 'Maya R.', role: 'Senior, part-time barista', rating: 5, title: 'Easy first job with patient training', body: 'Managers actually explained the rush instead of expecting me to know everything. The closing checklist is clear and my school schedule has been respected.', helpful: 42 },
+          { name: 'Evan L.', role: 'Weekend counter crew', rating: 4, title: 'Busy but manageable', body: 'Saturday mornings get packed, but tips are solid and the team helps new people. Best if you like talking to customers.', helpful: 28 }
+        ]
+      },
+      {
+        id: 'grocery-pickup',
+        title: 'Grocery Pickup Runner',
+        company: 'Harborline Grocers',
+        businessType: 'Neighborhood market',
+        icon: 'shopping-basket',
+        color: '#16a34a',
+        payMin: 15,
+        payMax: 19,
+        rating: 4.5,
+        reviewCount: 241,
+        schedule: 'After school, weekend morning, or summer blocks',
+        type: 'Part-time',
+        locationStyle: 'Near main shopping district',
+        distance: 3.1,
+        posted: 'Today',
+        badge: 'Student favorite',
+        tags: ['Part-time', 'After school', 'Weekend', 'No experience', 'Paid training'],
+        summary: 'Pull online orders, organize pickup carts, and bring groceries to customers. Good for students who want active work without late nights.',
+        requirements: ['Can lift light grocery totes', 'Comfortable walking during shifts', 'Basic phone scanner use after training'],
+        perks: ['Employee discount', 'Predictable 4-hour shifts', 'Raises after training milestones'],
+        reviews: [
+          { name: 'Jordan K.', role: 'Pickup runner', rating: 5, title: 'Good hours around school', body: 'I work two evenings and one weekend shift. It is simple to learn and the supervisors are good about schedule changes for finals.', helpful: 35 },
+          { name: 'Tessa M.', role: 'Order staging', rating: 4, title: 'Fast paced in a good way', body: 'You move a lot, so the shift goes by fast. Training took about three days before I felt comfortable.', helpful: 19 }
+        ]
+      },
+      {
+        id: 'tech-bench',
+        title: 'Junior Tech Bench Helper',
+        company: 'ByteBarn Repair',
+        businessType: 'Device repair shop',
+        icon: 'cpu',
+        color: '#2563eb',
+        payMin: 16,
+        payMax: 22,
+        rating: 4.8,
+        reviewCount: 94,
+        schedule: '3 PM to 7 PM weekdays, optional Saturdays',
+        type: 'Part-time',
+        locationStyle: 'Local tech plaza',
+        distance: 4.8,
+        posted: '1 day ago',
+        badge: 'Skill builder',
+        tags: ['Part-time', 'After school', 'Paid training', 'Flexible schedule', 'Entry-level'],
+        summary: 'Check in repairs, clean devices, image computers, organize parts, and shadow senior techs. A strong fit for students interested in IT or electronics.',
+        requirements: ['Interested in computers or phones', 'Careful with small parts and customer devices', 'Comfortable documenting steps'],
+        perks: ['Hands-on repair training', 'Discounted parts', 'Reference letters for tech programs'],
+        reviews: [
+          { name: 'Noah S.', role: 'Bench assistant', rating: 5, title: 'Great if you like fixing things', body: 'I started with cleaning laptops and now I help with SSD swaps. They do not rush training and the owner explains why each step matters.', helpful: 31 },
+          { name: 'Priya D.', role: 'Front counter trainee', rating: 5, title: 'Actually useful experience', body: 'This was the first job that made my resume look like more than retail. Customers can be stressed, but the staff backs you up.', helpful: 22 }
+        ]
+      },
+      {
+        id: 'arcade-floor',
+        title: 'Arcade Floor Attendant',
+        company: 'Northbeam Arcade',
+        businessType: 'Family entertainment center',
+        icon: 'gamepad-2',
+        color: '#7c3aed',
+        payMin: 13,
+        payMax: 17,
+        rating: 4.4,
+        reviewCount: 128,
+        schedule: 'Friday evenings, weekends, school breaks',
+        type: 'Part-time',
+        locationStyle: 'Entertainment district',
+        distance: 5.2,
+        posted: '3 days ago',
+        badge: 'Weekend role',
+        tags: ['Part-time', 'Weekend', 'No experience', 'Seasonal', 'Flexible schedule'],
+        summary: 'Help guests with games, reload cards, reset machines, and keep the floor clean during peak weekend hours.',
+        requirements: ['Comfortable helping kids and families', 'Able to stay calm when it gets loud', 'Basic cash handling after training'],
+        perks: ['Free play credits', 'Short weekend shifts', 'Promotes attendants to shift leads'],
+        reviews: [
+          { name: 'Alex V.', role: 'Floor attendant', rating: 4, title: 'Fun but loud', body: 'It is not boring. Friday nights are busy, but coworkers are close in age and managers are flexible with school events.', helpful: 24 },
+          { name: 'Samira P.', role: 'Party host', rating: 5, title: 'Good weekend money', body: 'Birthday parties can be hectic, but the tips help. Training was simple and I liked having weekday nights open.', helpful: 18 }
+        ]
+      },
+      {
+        id: 'library-aide',
+        title: 'Library Tech Aide',
+        company: 'Maple Finch Books & Tech',
+        businessType: 'Learning center',
+        icon: 'book-open-check',
+        color: '#0f766e',
+        payMin: 15,
+        payMax: 20,
+        rating: 4.9,
+        reviewCount: 73,
+        schedule: 'Weekday afternoons, early evenings',
+        type: 'Part-time',
+        locationStyle: 'Community learning area',
+        distance: 1.9,
+        posted: 'Today',
+        badge: 'Quiet workplace',
+        tags: ['Part-time', 'After school', 'Paid training', 'Flexible schedule', 'Entry-level'],
+        summary: 'Shelve books, help patrons print documents, reset tablets, and support simple computer questions in a calm environment.',
+        requirements: ['Comfortable with basic computer tasks', 'Organized and detail focused', 'Able to help people patiently'],
+        perks: ['Quiet shift environment', 'Resume-friendly service experience', 'No late nights'],
+        reviews: [
+          { name: 'Lena C.', role: 'Tech aide', rating: 5, title: 'Calm place to work after class', body: 'The work is steady and low drama. I learned how to help people without feeling thrown into stressful situations.', helpful: 29 },
+          { name: 'Miles T.', role: 'Shelving assistant', rating: 5, title: 'Nice supervisors', body: 'Supervisors are kind and explain tasks clearly. It is a good job if you want something quieter than food service.', helpful: 17 }
+        ]
+      },
+      {
+        id: 'pet-care',
+        title: 'Pet Care Assistant',
+        company: 'Tailwind Pet Care',
+        businessType: 'Pet boarding and daycare',
+        icon: 'paw-print',
+        color: '#db2777',
+        payMin: 14,
+        payMax: 18,
+        rating: 4.6,
+        reviewCount: 112,
+        schedule: 'After school cleanup shifts and weekend mornings',
+        type: 'Part-time',
+        locationStyle: 'West side area',
+        distance: 6.6,
+        posted: '4 days ago',
+        badge: 'Animal care',
+        tags: ['Part-time', 'After school', 'Weekend', 'No experience', 'Paid training'],
+        summary: 'Help with feeding prep, cleaning rooms, supervising play areas, and keeping pet notes updated for staff.',
+        requirements: ['Comfortable around dogs and cats', 'Able to clean thoroughly', 'Can follow safety rules every shift'],
+        perks: ['Animal care experience', 'Weekend shift bonuses', 'Training in pet safety basics'],
+        reviews: [
+          { name: 'Kara N.', role: 'Kennel assistant', rating: 5, title: 'Great for animal lovers', body: 'It is cleaning-heavy, but I knew that going in. The animals are fun and the staff teaches safe handling before you are alone.', helpful: 26 },
+          { name: 'Diego A.', role: 'Daycare helper', rating: 4, title: 'Physical but rewarding', body: 'You need good shoes and patience. The schedule works with school and weekend shifts fill quickly.', helpful: 15 }
+        ]
+      },
+      {
+        id: 'camp-crew',
+        title: 'Summer Camp Crew Member',
+        company: 'BrightSprout Camps',
+        businessType: 'Youth programs',
+        icon: 'trees',
+        color: '#15803d',
+        payMin: 14,
+        payMax: 21,
+        rating: 4.7,
+        reviewCount: 157,
+        schedule: 'Summer weekdays, optional spring training days',
+        type: 'Seasonal',
+        locationStyle: 'Parks and recreation area',
+        distance: 7.5,
+        posted: '6 days ago',
+        badge: 'Summer start',
+        tags: ['Seasonal', 'No experience', 'Paid training', 'Flexible schedule', 'First job'],
+        summary: 'Lead small activities, help counselors set up games, prep supplies, and support kids during summer programming.',
+        requirements: ['Enjoy working with kids', 'Reliable during scheduled camp weeks', 'Able to be outside in warm weather'],
+        perks: ['Leadership experience', 'CPR training reimbursement', 'Great for education resumes'],
+        reviews: [
+          { name: 'Henry B.', role: 'Camp crew', rating: 5, title: 'Looks good on college apps', body: 'It gave me leadership examples for applications and interviews. The days are active, but the team is supportive.', helpful: 33 },
+          { name: 'Anika W.', role: 'Activity helper', rating: 4, title: 'Busy summer job', body: 'The first week was a lot to learn, then it became easy. I liked being outside instead of stuck behind a counter.', helpful: 21 }
+        ]
+      },
+      {
+        id: 'print-shop',
+        title: 'Print Shop Production Assistant',
+        company: 'Press & Pine Print Co.',
+        businessType: 'Local print studio',
+        icon: 'printer',
+        color: '#475569',
+        payMin: 16,
+        payMax: 23,
+        rating: 4.6,
+        reviewCount: 65,
+        schedule: 'Two weekday afternoons, Saturday optional',
+        type: 'Part-time',
+        locationStyle: 'Light industrial area',
+        distance: 8.1,
+        posted: '1 week ago',
+        badge: 'Creative shop',
+        tags: ['Part-time', 'After school', 'Paid training', 'Entry-level', 'Flexible schedule'],
+        summary: 'Help prepare orders, cut flyers, pack boxes, check print quality, and learn basic production equipment.',
+        requirements: ['Detail focused', 'Comfortable measuring and counting items', 'Can follow safety instructions near equipment'],
+        perks: ['Learn design-to-print workflow', 'Employee print discount', 'Small team environment'],
+        reviews: [
+          { name: 'Riley G.', role: 'Production assistant', rating: 5, title: 'Good hands-on work', body: 'I liked that it felt more skilled than a usual first job. You learn machines slowly and nobody expects speed on day one.', helpful: 20 },
+          { name: 'Cameron F.', role: 'Packing helper', rating: 4, title: 'Nice change from food service', body: 'The work is repetitive sometimes, but the shop is organized and the hours are easy to plan around.', helpful: 13 }
+        ]
+      },
+      {
+        id: 'front-desk',
+        title: 'Front Desk Assistant',
+        company: 'Lumen Desk Suites',
+        businessType: 'Shared office workspace',
+        icon: 'clipboard-list',
+        color: '#0ea5e9',
+        payMin: 15,
+        payMax: 20,
+        rating: 4.5,
+        reviewCount: 88,
+        schedule: 'After school or early evening desk coverage',
+        type: 'Part-time',
+        locationStyle: 'Business district',
+        distance: 2.8,
+        posted: 'Today',
+        badge: 'Office experience',
+        tags: ['Part-time', 'After school', 'Paid training', 'Flexible schedule', 'Entry-level'],
+        summary: 'Welcome guests, sort mail, restock meeting rooms, answer simple calls, and learn office operations.',
+        requirements: ['Comfortable greeting visitors', 'Can keep shared spaces organized', 'Basic email and phone confidence'],
+        perks: ['Office resume experience', 'Quiet evening shifts', 'Business-casual environment'],
+        reviews: [
+          { name: 'Nina J.', role: 'Desk assistant', rating: 5, title: 'Professional without being intense', body: 'This helped me learn office manners and phone skills. It is much calmer than retail and my manager gives clear notes.', helpful: 27 },
+          { name: 'Tyler H.', role: 'Evening front desk', rating: 4, title: 'Good resume builder', body: 'Some shifts are slow, so you need to stay organized. It made interviews easier because I had office examples to talk about.', helpful: 14 }
+        ]
+      },
+      {
+        id: 'remote-chat',
+        title: 'Customer Chat Trainee',
+        company: 'ClearCall Support',
+        businessType: 'Remote customer support team',
+        icon: 'messages-square',
+        color: '#4f46e5',
+        payMin: 17,
+        payMax: 24,
+        rating: 4.3,
+        reviewCount: 203,
+        schedule: 'Evening blocks, weekend blocks, remote training',
+        type: 'Remote',
+        locationStyle: 'Remote from your area',
+        distance: 0,
+        posted: '2 days ago',
+        badge: 'Remote option',
+        tags: ['Remote', 'Part-time', 'Paid training', 'Flexible schedule', 'Entry-level'],
+        summary: 'Answer customer questions through chat templates, learn support notes, and work structured evening shifts from home.',
+        requirements: ['Reliable computer and internet', 'Strong writing basics', 'Able to follow scripts without rushing'],
+        perks: ['Remote paid training', 'Evening shifts', 'Advancement to quality review roles'],
+        reviews: [
+          { name: 'Marcos E.', role: 'Chat trainee', rating: 4, title: 'Good remote starter role', body: 'Training is detailed and the templates help. You need to stay focused because chats can stack up near the end of shifts.', helpful: 38 },
+          { name: 'Ella Q.', role: 'Support agent', rating: 4, title: 'Flexible but structured', body: 'It works with college classes, but you have to show up on time because the queue is planned around coverage.', helpful: 25 }
+        ]
+      },
+      {
+        id: 'cinema-crew',
+        title: 'Cinema Concession Crew',
+        company: 'Crestline Cinema',
+        businessType: 'Movie theater',
+        icon: 'clapperboard',
+        color: '#dc2626',
+        payMin: 13,
+        payMax: 16,
+        rating: 4.2,
+        reviewCount: 176,
+        schedule: 'Evenings, weekends, school breaks',
+        type: 'Part-time',
+        locationStyle: 'Mall and theater area',
+        distance: 5.9,
+        posted: '5 days ago',
+        badge: 'Evening shifts',
+        tags: ['Part-time', 'Weekend', 'No experience', 'Seasonal', 'Flexible schedule'],
+        summary: 'Sell tickets and snacks, clean theaters between shows, and help guests during busy movie releases.',
+        requirements: ['Can work some weekend nights', 'Comfortable with quick customer lines', 'Able to clean and restock between rushes'],
+        perks: ['Movie passes', 'Team discounts', 'Short evening shifts'],
+        reviews: [
+          { name: 'Jules P.', role: 'Concession crew', rating: 4, title: 'Good first job if you like movies', body: 'Opening weekends are crazy, but normal shifts are chill. Free tickets are the best perk.', helpful: 23 },
+          { name: 'Owen D.', role: 'Usher', rating: 4, title: 'Works around school', body: 'I only work Fridays and Sundays. Managers were clear that school came first as long as requests were early.', helpful: 16 }
+        ]
+      },
+      {
+        id: 'dental-scheduling',
+        title: 'Reception and Scheduling Assistant',
+        company: 'Aster Family Dental',
+        businessType: 'Family dental office',
+        icon: 'calendar-check',
+        color: '#0891b2',
+        payMin: 17,
+        payMax: 23,
+        rating: 4.8,
+        reviewCount: 54,
+        schedule: 'Late afternoon desk support, no weekends',
+        type: 'Part-time',
+        locationStyle: 'Medical office area',
+        distance: 4.4,
+        posted: '1 week ago',
+        badge: 'Career track',
+        tags: ['Part-time', 'After school', 'Paid training', 'Entry-level', 'No weekends'],
+        summary: 'Help check in patients, prepare appointment reminders, scan paperwork, and learn healthcare front office basics.',
+        requirements: ['Professional phone voice', 'Comfortable with private information rules', 'Detail oriented with schedules'],
+        perks: ['Healthcare office experience', 'No weekend shifts', 'Training in scheduling software'],
+        reviews: [
+          { name: 'Ari M.', role: 'Scheduling assistant', rating: 5, title: 'Great after-school office role', body: 'The office trained me step by step and never asked me to do anything I was not ready for. It feels like real career experience.', helpful: 30 },
+          { name: 'Grace L.', role: 'Front desk helper', rating: 5, title: 'Respectful team', body: 'Everyone is patient and professional. You need to be careful with details, but the work is not overwhelming.', helpful: 18 }
+        ]
+      },
+      {
+        id: 'auto-detail',
+        title: 'Entry-Level Auto Detailer',
+        company: 'Silverlane Auto Wash',
+        businessType: 'Auto cleaning and detailing',
+        icon: 'car-front',
+        color: '#334155',
+        payMin: 15,
+        payMax: 22,
+        rating: 4.4,
+        reviewCount: 119,
+        schedule: 'After school, Saturdays, summer full-time option',
+        type: 'Part-time',
+        locationStyle: 'Auto service corridor',
+        distance: 6.2,
+        posted: '3 days ago',
+        badge: 'Active work',
+        tags: ['Part-time', 'Weekend', 'No experience', 'Paid training', 'Summer'],
+        summary: 'Wash, vacuum, wipe interiors, prep vehicles, and learn detail packages with paid hands-on training.',
+        requirements: ['Can work outdoors or in a bay', 'Good attention to small details', 'Reliable for scheduled appointments'],
+        perks: ['Tips on detail jobs', 'Summer hours available', 'Promotes to lead detailer'],
+        reviews: [
+          { name: 'Ben A.', role: 'Detailer', rating: 4, title: 'Solid pay for active work', body: 'It is physical, but you can learn fast and tips are decent. The best part is not sitting still all shift.', helpful: 21 },
+          { name: 'Mika S.', role: 'Wash bay assistant', rating: 5, title: 'Good summer hours', body: 'I started on Saturdays and picked up more in summer. Training was simple and coworkers helped me get faster.', helpful: 12 }
+        ]
+      },
+      {
+        id: 'tutor-aide',
+        title: 'Homework Help Aide',
+        company: 'StudyNest Learning Center',
+        businessType: 'Tutoring and homework help',
+        icon: 'notebook-pen',
+        color: '#ca8a04',
+        payMin: 16,
+        payMax: 24,
+        rating: 4.9,
+        reviewCount: 61,
+        schedule: 'After school through early evening',
+        type: 'Part-time',
+        locationStyle: 'Campus-adjacent area',
+        distance: 3.7,
+        posted: 'Today',
+        badge: 'Great for grads',
+        tags: ['Part-time', 'After school', 'Paid training', 'Flexible schedule', 'Entry-level'],
+        summary: 'Support younger students with homework routines, reading practice, study habits, and small-group activities.',
+        requirements: ['Strong patience and communication', 'Comfortable with middle school basics', 'Able to pass standard youth program screening'],
+        perks: ['Education experience', 'Small groups', 'Letters of recommendation available'],
+        reviews: [
+          { name: 'Sofia R.', role: 'Homework aide', rating: 5, title: 'Meaningful and flexible', body: 'It fits after class and feels more meaningful than my old retail job. The students can be energetic, but the staff supports you.', helpful: 34 },
+          { name: 'Caleb Y.', role: 'Reading helper', rating: 5, title: 'Helpful for education majors', body: 'I used examples from this job in my scholarship interview. It is organized and the expectations are clear.', helpful: 20 }
+        ]
+      },
+      {
+        id: 'fulfillment-pack',
+        title: 'Pack and Prep Associate',
+        company: 'Packwell Local Fulfillment',
+        businessType: 'Local order fulfillment',
+        icon: 'package-check',
+        color: '#ea580c',
+        payMin: 16,
+        payMax: 21,
+        rating: 4.1,
+        reviewCount: 132,
+        schedule: 'Evenings and weekend blocks',
+        type: 'Part-time',
+        locationStyle: 'Warehouse district',
+        distance: 9.4,
+        posted: '2 days ago',
+        badge: 'Fast start',
+        tags: ['Part-time', 'Weekend', 'No experience', 'Paid training', 'Flexible schedule'],
+        summary: 'Pack small orders, label boxes, scan inventory, and keep stations stocked during evening fulfillment waves.',
+        requirements: ['Can lift boxes up to posted limits', 'Comfortable standing most of the shift', 'Able to work accurately at a steady pace'],
+        perks: ['Weekly schedule options', 'Shift differential on weekends', 'Quick training path'],
+        reviews: [
+          { name: 'Drew C.', role: 'Pack associate', rating: 4, title: 'Straightforward work', body: 'The job is repetitive but clear. I like that I can work evenings and not think about it after clocking out.', helpful: 26 },
+          { name: 'Kai W.', role: 'Prep associate', rating: 4, title: 'Good pay for entry level', body: 'It pays better than most first jobs. Bring comfortable shoes and ask questions during training.', helpful: 19 }
+        ]
+      }
+    ];
+
+    function init() {
+      state.jobs = jobs;
+      bindEvents();
+      updateTodayChip();
+      resolveVisitorLocation();
+      updateStats();
+      setTimeout(() => {
+        document.getElementById('skeletonWrap').classList.remove('show');
+        applyFilters();
+      }, 500);
+    }
+
+    function bindEvents() {
+      document.getElementById('keywordInput').addEventListener('input', debounce(applyFilters, 120));
+      document.getElementById('locationInput').addEventListener('input', debounce(handleManualLocation, 250));
+      document.getElementById('sortSelect').addEventListener('change', (e) => { state.sort = e.target.value; applyFilters(); });
+      document.getElementById('payRange').addEventListener('input', (e) => {
+        state.minPay = Number(e.target.value);
+        document.getElementById('payRangeLabel').textContent = `$${state.minPay}+/hr`;
+        applyFilters();
+      });
+      document.querySelectorAll('.filter-check').forEach(input => input.addEventListener('change', applyFilters));
+      document.querySelectorAll('.quick-tag').forEach(button => {
+        button.addEventListener('click', () => {
+          const tag = button.dataset.tag;
+          if (state.activeTags.has(tag)) {
+            state.activeTags.delete(tag);
+            button.classList.remove('active');
+          } else {
+            state.activeTags.add(tag);
+            button.classList.add('active');
+          }
+          syncCheckboxesWithQuickTags();
+          applyFilters();
+        });
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          closeDrawer();
+          closeApplyModal();
+        }
+      });
+      window.addEventListener('resize', debounce(() => window.lucide && lucide.createIcons(), 120));
+    }
+
+    function syncCheckboxesWithQuickTags() {
+      document.querySelectorAll('.filter-check').forEach(input => {
+        if (state.activeTags.has(input.value)) input.checked = true;
+      });
+    }
+
+    async function resolveVisitorLocation() {
+      const fallback = () => setAreaLabel('your area', '', '', false);
+      try {
+        const response = await fetch('https://ipapi.co/json/', { cache: 'no-store' });
+        if (!response.ok) throw new Error('Location response unavailable');
+        const data = await response.json();
+        const city = cleanLocationPart(data.city);
+        const region = cleanLocationPart(data.region_code || data.region);
+        if (!city && !region) return fallback();
+        setAreaLabel(city || 'your area', region, data.country_code || '', true);
+      } catch (firstError) {
+        try {
+          const response = await fetch('https://ipwho.is/', { cache: 'no-store' });
+          if (!response.ok) throw new Error('Backup location response unavailable');
+          const data = await response.json();
+          const city = cleanLocationPart(data.city);
+          const region = cleanLocationPart(data.region_code || data.region);
+          if (!city && !region) return fallback();
+          setAreaLabel(city || 'your area', region, data.country_code || '', true);
+        } catch (secondError) {
+          fallback();
+        }
+      }
+    }
+
+    function cleanLocationPart(value) {
+      return String(value || '').replace(/[<>]/g, '').trim().slice(0, 48);
+    }
+
+    function setAreaLabel(city, region, country, detected) {
+      state.city = city === 'your area' ? '' : city;
+      state.region = region || '';
+      state.areaLabel = state.city ? `${state.city}${state.region ? ', ' + state.region : ''}` : 'your area';
+      document.getElementById('areaLabel').textContent = state.areaLabel;
+      document.getElementById('locationInput').placeholder = state.areaLabel === 'your area' ? 'Use my area' : state.areaLabel;
+      document.getElementById('nearbyText').textContent = buildNearbyText(detected);
+      document.getElementById('heroCopy').textContent = `Browse part-time, weekend, seasonal, entry-level, and right-after-graduation work ${state.city ? 'around ' + state.city : 'near your area'} without digging through senior-level listings.`;
+      document.getElementById('subResultsLabel').textContent = `Matching school-friendly schedules ${state.city ? 'around ' + state.city : 'near your area'}.`;
+      updateLocationNames();
+      applyFilters(false);
+      refreshIcons();
+    }
+
+    function buildNearbyText(detected) {
+      if (!state.city) return 'within local commuting distance and online';
+      const areaBits = ['downtown', 'nearby neighborhoods', 'campus-adjacent areas', 'remote options'];
+      return `${detected ? 'using approximate IP location' : 'using selected location'} | ${areaBits.join(', ')}`;
+    }
+
+    function updateLocationNames() {
+      document.querySelectorAll('[data-job-location]').forEach(el => {
+        const job = state.jobs.find(item => item.id === el.dataset.jobLocation);
+        if (job) el.textContent = formatJobLocation(job);
+      });
+    }
+
+    function formatJobLocation(job) {
+      if (job.type === 'Remote') {
+        return state.region ? `Remote in ${state.region}` : 'Remote in your area';
+      }
+      if (!state.city) return job.locationStyle;
+      const style = job.locationStyle.toLowerCase();
+      if (style.includes('downtown')) return `Downtown ${state.city}`;
+      if (style.includes('remote')) return `Remote near ${state.city}`;
+      return `${job.locationStyle}, ${state.city}`;
+    }
+
+    function handleManualLocation(event) {
+      const value = cleanLocationPart(event.target.value);
+      if (value.length < 2) return;
+      const parts = value.split(',').map(part => cleanLocationPart(part));
+      setAreaLabel(parts[0] || 'your area', parts[1] || '', '', false);
+    }
+
+    function manualLocationPrompt() {
+      const answer = prompt('Enter a city or area name for this browser preview:');
+      if (!answer) return;
+      const cleaned = cleanLocationPart(answer);
+      if (!cleaned) return;
+      document.getElementById('locationInput').value = cleaned;
+      handleManualLocation({ target: { value: cleaned } });
+      showToast('Location updated in this browser');
+    }
+
+    function updateStats() {
+      const openRoles = state.jobs.length * 18 + 94;
+      const avgPay = Math.round(state.jobs.reduce((sum, job) => sum + job.payMin, 0) / state.jobs.length);
+      const schoolFriendly = Math.round((state.jobs.filter(job => job.tags.includes('After school') || job.tags.includes('Weekend') || job.tags.includes('Flexible schedule')).length / state.jobs.length) * 100);
+      const noExp = state.jobs.filter(job => job.tags.includes('No experience')).length * 11 + 7;
+      countTo('statOpen', openRoles, '', '');
+      countTo('statPay', avgPay, '$', ' <small>/hr</small>');
+      countTo('statSchool', schoolFriendly, '', '%');
+      countTo('statNoExp', noExp, '', '');
+    }
+
+    function countTo(id, target, prefix, suffix) {
+      const el = document.getElementById(id);
+      let current = 0;
+      const step = Math.max(1, Math.ceil(target / 24));
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        el.innerHTML = `${prefix}${current}${suffix}`;
+      }, 26);
+    }
+
+    function updateTodayChip() {
+      const now = new Date();
+      const formatted = now.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+      document.getElementById('todayChip').textContent = `Updated ${formatted}`;
+    }
+
+    function runSearch() {
+      applyFilters();
+      showToast('Search results updated');
+    }
+
+    function applyFilters(showSkeleton = true) {
+      if (showSkeleton) {
+        document.getElementById('skeletonWrap').classList.add('show');
+        document.getElementById('jobList').style.display = 'none';
+        clearTimeout(applyFilters.timer);
+        applyFilters.timer = setTimeout(() => applyFilters(false), 260);
+        return;
+      }
+
+      const keyword = document.getElementById('keywordInput').value.trim().toLowerCase();
+      const checked = Array.from(document.querySelectorAll('.filter-check:checked')).map(input => input.value);
+      const requiredTags = new Set([...checked, ...state.activeTags]);
+
+      let filtered = state.jobs.filter(job => {
+        const haystack = [job.title, job.company, job.businessType, job.type, job.summary, ...job.tags].join(' ').toLowerCase();
+        const matchesKeyword = !keyword || haystack.includes(keyword);
+        const matchesPay = job.payMin >= state.minPay || job.payMax >= state.minPay;
+        const matchesTags = requiredTags.size === 0 || Array.from(requiredTags).every(tag => job.tags.includes(tag) || job.type === tag);
+        return matchesKeyword && matchesPay && matchesTags;
+      });
+
+      filtered = sortJobs(filtered);
+      state.filtered = filtered;
+      renderJobs(filtered);
+      document.getElementById('skeletonWrap').classList.remove('show');
+      document.getElementById('jobList').style.display = 'flex';
+    }
+
+    function sortJobs(list) {
+      const sorted = [...list];
+      if (state.sort === 'payHigh') sorted.sort((a, b) => b.payMax - a.payMax || b.rating - a.rating);
+      if (state.sort === 'ratingHigh') sorted.sort((a, b) => b.rating - a.rating || b.reviewCount - a.reviewCount);
+      if (state.sort === 'newest') {
+        const score = posted => posted === 'Today' ? 0 : Number((posted.match(/\d+/) || [8])[0]);
+        sorted.sort((a, b) => score(a.posted) - score(b.posted));
+      }
+      if (state.sort === 'recommended') sorted.sort((a, b) => recommendationScore(b) - recommendationScore(a));
+      return sorted;
+    }
+
+    function recommendationScore(job) {
+      let score = job.rating * 10 + job.reviewCount / 25 + (25 - job.distance);
+      if (job.tags.includes('After school')) score += 10;
+      if (job.tags.includes('Paid training')) score += 8;
+      if (job.tags.includes('No experience')) score += 7;
+      if (job.posted === 'Today') score += 5;
+      return score;
+    }
+
+    function renderJobs(list) {
+      const container = document.getElementById('jobList');
+      const empty = document.getElementById('emptyState');
+      document.getElementById('resultsLabel').textContent = `${list.length} strong matches`;
+      if (!list.length) {
+        container.innerHTML = '';
+        empty.classList.add('show');
+        refreshIcons();
+        return;
+      }
+      empty.classList.remove('show');
+      container.innerHTML = list.map((job, index) => jobCardTemplate(job, index)).join('');
+      refreshIcons();
+    }
+
+    function jobCardTemplate(job, index) {
+      const isSaved = state.saved.has(job.id);
+      const featuredClass = job.badge.includes('Hiring') || job.badge.includes('Student') || job.badge.includes('Great') ? 'featured' : '';
+      const urgentClass = job.badge.includes('Fast') || job.badge.includes('Weekend') ? 'urgent' : '';
+      return `
+        <article class="job-card ${featuredClass} ${urgentClass}" style="animation-delay:${Math.min(index * 35, 180)}ms" onclick="openDrawer('${job.id}')">
+          <span class="featured-badge">${escapeHTML(job.badge)}</span>
+          <div class="job-top">
+            <div class="company-logo" style="background:${job.color}"><i data-lucide="${job.icon}" class="icon-lg"></i></div>
+            <div class="job-info">
+              <h3 class="job-title">${escapeHTML(job.title)}</h3>
+              <div class="company-name"><strong>${escapeHTML(job.company)}</strong> · ${escapeHTML(job.businessType)}</div>
+              <div class="job-meta">
+                <span><i data-lucide="map-pin" class="icon-sm"></i><span data-job-location="${job.id}">${escapeHTML(formatJobLocation(job))}</span></span>
+                <span><i data-lucide="route" class="icon-sm"></i>${job.distance === 0 ? 'Remote' : job.distance + ' mi'}</span>
+                <span><i data-lucide="clock" class="icon-sm"></i>${escapeHTML(job.schedule)}</span>
+                <span><i data-lucide="calendar-plus" class="icon-sm"></i>${escapeHTML(job.posted)}</span>
+              </div>
+              <div class="job-tags">${job.tags.slice(0, 5).map(tag => tagTemplate(tag)).join('')}</div>
+            </div>
+          </div>
+          <div class="job-bottom">
+            <div>
+              <div class="pay-range">$${job.payMin}-$${job.payMax}<span> / hour</span></div>
+              <div class="stars">${ratingTemplate(job.rating)} <span>${job.rating.toFixed(1)} · ${job.reviewCount} reviews</span></div>
+            </div>
+            <div class="job-actions">
+              <button class="save-btn ${isSaved ? 'saved' : ''}" type="button" onclick="toggleSave(event, '${job.id}')"><i data-lucide="bookmark" class="icon-sm"></i>${isSaved ? 'Saved' : 'Save'}</button>
+              <button class="apply-btn" type="button" onclick="openApplyModal(event, '${job.id}')"><i data-lucide="send" class="icon-sm"></i>Apply</button>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function tagTemplate(tag) {
+      const map = {
+        'Part-time': 'green',
+        'After school': 'green',
+        'Paid training': 'blue',
+        'Remote': 'purple',
+        'Weekend': 'orange',
+        'Seasonal': 'orange',
+        'No experience': 'blue',
+        'Flexible schedule': 'green',
+        'Entry-level': 'blue',
+        'First job': 'green',
+        'Scholarship perk': 'purple',
+        'No weekends': 'green',
+        'Summer': 'orange'
+      };
+      return `<span class="tag ${map[tag] || ''}">${escapeHTML(tag)}</span>`;
+    }
+
+    function ratingTemplate(rating) {
+      const full = Math.floor(rating);
+      let html = '<span class="star-icons" aria-label="Rating">';
+      for (let i = 0; i < 5; i++) {
+        const filled = i < full ? 'filled-star' : '';
+        html += `<i data-lucide="star" class="icon-sm ${filled}"></i>`;
+      }
+      html += '</span>';
+      return html;
+    }
+
+    function openDrawer(id) {
+      const job = state.jobs.find(item => item.id === id);
+      if (!job) return;
+      const body = document.getElementById('drawerBody');
+      body.innerHTML = drawerTemplate(job);
+      document.getElementById('overlay').classList.add('open');
+      document.getElementById('drawer').classList.add('open');
+      document.getElementById('drawer').setAttribute('aria-hidden', 'false');
+      document.body.classList.add('drawer-lock');
+      refreshIcons();
+    }
+
+    function closeDrawer() {
+      document.getElementById('overlay').classList.remove('open');
+      document.getElementById('drawer').classList.remove('open');
+      document.getElementById('drawer').setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('drawer-lock');
+    }
+
+    function drawerTemplate(job) {
+      return `
+        <div class="drawer-company">
+          <div class="drawer-logo" style="background:${job.color}"><i data-lucide="${job.icon}" class="icon-lg"></i></div>
+          <div>
+            <div class="drawer-title">${escapeHTML(job.title)}</div>
+            <div class="drawer-sub">${escapeHTML(job.company)} · <span data-job-location="${job.id}">${escapeHTML(formatJobLocation(job))}</span></div>
+          </div>
+        </div>
+        <div class="drawer-tags">${job.tags.map(tag => tagTemplate(tag)).join('')}</div>
+
+        <div class="info-grid">
+          <div class="info-item"><div class="info-label"><i data-lucide="badge-dollar-sign" class="icon-sm"></i>Pay</div><div class="info-value">$${job.payMin}-$${job.payMax} / hour</div></div>
+          <div class="info-item"><div class="info-label"><i data-lucide="clock-3" class="icon-sm"></i>Schedule</div><div class="info-value">${escapeHTML(job.type)}</div></div>
+          <div class="info-item"><div class="info-label"><i data-lucide="route" class="icon-sm"></i>Distance</div><div class="info-value">${job.distance === 0 ? 'Remote' : job.distance + ' miles'}</div></div>
+          <div class="info-item"><div class="info-label"><i data-lucide="calendar-plus" class="icon-sm"></i>Posted</div><div class="info-value">${escapeHTML(job.posted)}</div></div>
+        </div>
+
+        <div class="section-label"><i data-lucide="briefcase" class="icon-sm"></i>What you would do</div>
+        <p class="job-description">${escapeHTML(job.summary)}</p>
+
+        <div class="section-label"><i data-lucide="clipboard-check" class="icon-sm"></i>Requirements</div>
+        <ul class="bullet-list">${job.requirements.map(item => `<li><i data-lucide="check-circle-2" class="icon-sm"></i><span>${escapeHTML(item)}</span></li>`).join('')}</ul>
+
+        <div class="section-label"><i data-lucide="sparkles" class="icon-sm"></i>Perks</div>
+        <ul class="bullet-list">${job.perks.map(item => `<li><i data-lucide="circle-dollar-sign" class="icon-sm"></i><span>${escapeHTML(item)}</span></li>`).join('')}</ul>
+
+        <div class="section-label" id="reviews"><i data-lucide="messages-square" class="icon-sm"></i>Worker reviews</div>
+        <div class="rating-summary">
+          <div class="big-rating">
+            <div class="big-num">${job.rating.toFixed(1)}</div>
+            <div class="big-stars">${ratingOnlyStars(job.rating)}</div>
+            <div class="big-count">${job.reviewCount} reviews</div>
+          </div>
+          <div class="rating-bars">
+            ${ratingBar('5 star', 68)}
+            ${ratingBar('4 star', 22)}
+            ${ratingBar('3 star', 7)}
+            ${ratingBar('2 star', 2)}
+            ${ratingBar('1 star', 1)}
+          </div>
+        </div>
+        ${job.reviews.map(review => reviewTemplate(review, job.color)).join('')}
+
+        <div class="apply-section">
+          <h3>Interested in this role?</h3>
+          <p>Save it, compare the schedule, or connect the apply button to your own application flow.</p>
+          <button class="btn-primary apply-full-btn" type="button" onclick="openApplyModal(event, '${job.id}')"><i data-lucide="send" class="icon-sm"></i>Start application</button>
+        </div>
+      `;
+    }
+
+    function ratingOnlyStars(rating) {
+      const full = Math.floor(rating);
+      let html = '';
+      for (let i = 0; i < 5; i++) html += `<i data-lucide="star" class="icon-sm ${i < full ? 'filled-star' : ''}"></i>`;
+      return html;
+    }
+
+    function ratingBar(label, value) {
+      return `<div class="bar-row"><span>${label}</span><div class="bar-track"><div class="bar-fill" style="width:${value}%"></div></div><span>${value}%</span></div>`;
+    }
+
+    function reviewTemplate(review, color) {
+      const initials = review.name.split(' ').map(part => part[0]).join('').replace('.', '').slice(0, 2).toUpperCase();
+      return `
+        <div class="review-card">
+          <div class="review-top">
+            <div class="avatar" style="background:${color}">${escapeHTML(initials)}</div>
+            <div class="review-meta">
+              <div class="reviewer-name">${escapeHTML(review.name)}</div>
+              <div class="reviewer-sub">${escapeHTML(review.role)}</div>
+            </div>
+            <div class="review-stars">${ratingOnlyStars(review.rating)}</div>
+          </div>
+          <div class="review-title">${escapeHTML(review.title)}</div>
+          <div class="review-body">${escapeHTML(review.body)}</div>
+          <div class="review-helpful"><span onclick="showToast('Thanks for the feedback')">Helpful</span> · ${review.helpful} people found this useful</div>
+        </div>
+      `;
+    }
+
+    function toggleSave(event, id) {
+      event.stopPropagation();
+      if (state.saved.has(id)) {
+        state.saved.delete(id);
+        showToast('Removed from saved jobs');
+      } else {
+        state.saved.add(id);
+        showToast('Saved job');
+      }
+      localStorage.setItem('jobjobSaved', JSON.stringify(Array.from(state.saved)));
+      applyFilters(false);
+    }
+
+    function openApplyModal(event, id) {
+      if (event) event.stopPropagation();
+      const job = state.jobs.find(item => item.id === id);
+      if (job) document.getElementById('modalText').textContent = `${job.company} application preview for ${job.title}. This demo does not submit applications. Connect a real applicant tracking system, employer form, or email workflow before launch.`;
+      document.getElementById('applyModal').classList.add('open');
+      document.getElementById('applyModal').setAttribute('aria-hidden', 'false');
+      refreshIcons();
+    }
+
+    function closeApplyModal() {
+      document.getElementById('applyModal').classList.remove('open');
+      document.getElementById('applyModal').setAttribute('aria-hidden', 'true');
+    }
+
+    function clearFilters() {
+      document.getElementById('keywordInput').value = '';
+      document.getElementById('payRange').value = 10;
+      document.getElementById('payRangeLabel').textContent = '$10+/hr';
+      document.querySelectorAll('.filter-check').forEach(input => input.checked = false);
+      document.querySelectorAll('.quick-tag').forEach(button => button.classList.remove('active'));
+      state.activeTags.clear();
+      state.minPay = 10;
+      state.sort = 'recommended';
+      document.getElementById('sortSelect').value = 'recommended';
+      applyFilters();
+      showToast('Filters reset');
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastText').textContent = message;
+      toast.classList.add('show');
+      refreshIcons();
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => toast.classList.remove('show'), 1800);
+    }
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
+    }
+
+    function debounce(fn, delay) {
+      let timer;
+      return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn(...args), delay);
+      };
+    }
+
+    function refreshIcons() {
+      if (window.lucide) lucide.createIcons();
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+    window.addEventListener('load', refreshIcons);
+  </script>
+</body>
+</html>
